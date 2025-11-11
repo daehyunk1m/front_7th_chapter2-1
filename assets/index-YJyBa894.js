@@ -1,4 +1,159 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e){if(t.type!==`childList`)continue;for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();const e=`modulepreload`,t=function(e){return`/front_7th_chapter2-1/`+e},n={},r=function(r,i,a){let o=Promise.resolve();if(i&&i.length>0){let r=function(e){return Promise.all(e.map(e=>Promise.resolve(e).then(e=>({status:`fulfilled`,value:e}),e=>({status:`rejected`,reason:e}))))},s=document.getElementsByTagName(`link`),c=document.querySelector(`meta[property=csp-nonce]`),l=c?.nonce||c?.getAttribute(`nonce`);o=r(i.map(r=>{if(r=t(r,a),r in n)return;n[r]=!0;let i=r.endsWith(`.css`),o=i?`[rel="stylesheet"]`:``,c=!!a;if(c)for(let e=s.length-1;e>=0;e--){let t=s[e];if(t.href===r&&(!i||t.rel===`stylesheet`))return}else if(document.querySelector(`link[href="${r}"]${o}`))return;let u=document.createElement(`link`);if(u.rel=i?`stylesheet`:e,i||(u.as=`script`),u.crossOrigin=``,u.href=r,l&&u.setAttribute(`nonce`,l),document.head.appendChild(u),i)return new Promise((e,t)=>{u.addEventListener(`load`,e),u.addEventListener(`error`,()=>t(Error(`Unable to preload CSS for ${r}`)))})}))}function s(e){let t=new Event(`vite:preloadError`,{cancelable:!0});if(t.payload=e,window.dispatchEvent(t),!t.defaultPrevented)throw e}return o.then(e=>{for(let t of e||[]){if(t.status!==`rejected`)continue;s(t.reason)}return r().catch(s)})},i=()=>r(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({onUnhandledRequest:`bypass`}));function a(){let e=`
+(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e){if(t.type!==`childList`)continue;for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();const e=`modulepreload`,t=function(e){return`/front_7th_chapter2-1/`+e},n={},r=function(r,i,a){let o=Promise.resolve();if(i&&i.length>0){let r=function(e){return Promise.all(e.map(e=>Promise.resolve(e).then(e=>({status:`fulfilled`,value:e}),e=>({status:`rejected`,reason:e}))))},s=document.getElementsByTagName(`link`),c=document.querySelector(`meta[property=csp-nonce]`),l=c?.nonce||c?.getAttribute(`nonce`);o=r(i.map(r=>{if(r=t(r,a),r in n)return;n[r]=!0;let i=r.endsWith(`.css`),o=i?`[rel="stylesheet"]`:``,c=!!a;if(c)for(let e=s.length-1;e>=0;e--){let t=s[e];if(t.href===r&&(!i||t.rel===`stylesheet`))return}else if(document.querySelector(`link[href="${r}"]${o}`))return;let u=document.createElement(`link`);if(u.rel=i?`stylesheet`:e,i||(u.as=`script`),u.crossOrigin=``,u.href=r,l&&u.setAttribute(`nonce`,l),document.head.appendChild(u),i)return new Promise((e,t)=>{u.addEventListener(`load`,e),u.addEventListener(`error`,()=>t(Error(`Unable to preload CSS for ${r}`)))})}))}function s(e){let t=new Event(`vite:preloadError`,{cancelable:!0});if(t.payload=e,window.dispatchEvent(t),!t.defaultPrevented)throw e}return o.then(e=>{for(let t of e||[]){if(t.status!==`rejected`)continue;s(t.reason)}return r().catch(s)})},i=()=>{let e=!1;return`
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+      <div class="max-w-md mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          ${a({isDetail:e})}
+          <div class="flex items-center space-x-2">
+            <!-- 장바구니 아이콘 -->
+            ${o()}
+          </div>
+        </div>
+      </div>
+    </header>
+  `},a=({isDetail:e=!1})=>e?`
+    <div class="flex items-center space-x-3">
+    <button onclick="window.history.back()" class="p-2 text-gray-700 hover:text-gray-900 transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+    <h1 class="text-lg font-bold text-gray-900">상품 상세</h1>
+  </div>
+  `:`
+  <h1 class="text-xl font-bold text-gray-900">
+    <a href="/" data-link="">쇼핑몰</a>
+  </h1>
+  `,o=()=>`
+    <button id="cart-icon-btn" class="relative p-2 text-gray-700 hover:text-gray-900 transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4m2.6 8L6 2H3m4 11v6a1 1 0 001 1h1a1 1 0 001-1v-6M13 13v6a1 1 0 001 1h1a1 1 0 001-1v-6"></path>
+      </svg>
+    </button>
+  `,s=({children:e})=>`
+  <main class="max-w-md mx-auto px-4 py-4">
+    ${e}
+  </main>
+  `,c=()=>`
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-4">
+    <!-- 검색창 -->
+    <div class="mb-4">
+      <div class="relative">
+        <input type="text" id="search-input" placeholder="상품명을 검색해보세요..." value="" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg
+                    focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <!-- 필터 옵션 -->
+    <div class="space-y-3">
+      <!-- 카테고리 필터 -->
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-600">카테고리:</label>
+          <button data-breadcrumb="reset" class="text-xs hover:text-blue-800 hover:underline">전체</button>
+        </div>
+        <!-- 1depth 카테고리 -->
+        <div class="flex flex-wrap gap-2">
+          <div class="text-sm text-gray-500 italic">카테고리 로딩 중...</div>
+        </div>
+        <!-- 2depth 카테고리 -->
+      </div>
+      <!-- 기존 필터들 -->
+      <div class="flex gap-2 items-center justify-between">
+        <!-- 페이지당 상품 수 -->
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-600">개수:</label>
+          <select id="limit-select"
+                  class="text-sm border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+            <option value="10">
+              10개
+            </option>
+            <option value="20" selected="">
+              20개
+            </option>
+            <option value="50">
+              50개
+            </option>
+            <option value="100">
+              100개
+            </option>
+          </select>
+        </div>
+        <!-- 정렬 -->
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-600">정렬:</label>
+          <select id="sort-select" class="text-sm border border-gray-300 rounded px-2 py-1
+                        focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+            <option value="price_asc" selected="">가격 낮은순</option>
+            <option value="price_desc">가격 높은순</option>
+            <option value="name_asc">이름순</option>
+            <option value="name_desc">이름 역순</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  `,l=()=>{let e=!0;return`
+    <div class=${`text-center py-4 ${e?``:`text-sm text-gray-500`}`}>
+      ${e?l.HasProducts():`모든 상품을 확인했습니다`}
+    </div>
+  `};l.HasProducts=()=>`
+  <div class="inline-flex items-center">
+    <svg class="animate-spin h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" 
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    <span class="text-sm text-gray-600">상품을 불러오는 중...</span>
+  </div>
+  `;const u=()=>`
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden animate-pulse">
+      <div class="aspect-square bg-gray-200"></div>
+      <div class="p-3">
+        <div class="h-4 bg-gray-200 rounded mb-2"></div>
+        <div class="h-3 bg-gray-200 rounded w-2/3 mb-2"></div>
+        <div class="h-5 bg-gray-200 rounded w-1/2 mb-3"></div>
+        <div class="h-8 bg-gray-200 rounded"></div>
+      </div>
+    </div>
+  `,d=()=>`
+  <div class="mb-6">
+    <div>
+      <!-- 상품 그리드 -->
+      ${d.Container({children:`
+        <!-- 로딩 스켈레톤 -->
+        ${u().repeat(4)}
+        `})}
+      ${l()}
+    </div>
+  </div>
+  `;d.Container=({children:e})=>`
+  <div class="grid grid-cols-2 gap-4 mb-6" id="products-grid">
+    ${e}
+  </div>
+  `;const f=()=>`
+    <footer class="bg-white shadow-sm sticky top-0 z-40">
+      <div class="max-w-md mx-auto py-8 text-center text-gray-500">
+        <p>© 2025 항해플러스 프론트엔드 쇼핑몰</p>
+      </div>
+    </footer>
+  `;function p(){return`
+    <div class="min-h-screen bg-gray-50"> 
+      ${i()}
+      ${s({children:`
+          <!-- 검색 및 필터 -->
+          ${c()}
+          <!-- 상품 목록 -->
+          ${d()}
+        `})}
+      ${f()}
+    </div>
+  `}const m=()=>r(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({onUnhandledRequest:`bypass`}));function h(){let e=`
     <div class="min-h-screen bg-gray-50">
       <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-md mx-auto px-4 py-4">
@@ -1089,26 +1244,37 @@
       <a href="/" data-link class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</a>
     </div>
     </main>
-  `;document.body.innerHTML=`
+  `,d=document.querySelector(`#root`);d.innerHTML=p(),window.location.pathname.includes(`pub`)&&(document.body.innerHTML=`
+    <div>상품목록_레이아웃_로딩</div>  
     ${e}
-    <br />
-    ${t}
-    <br />
-    ${n}
-    <br />
-    ${r}
-    <br />
-    ${i}
-    <br />
-    ${a}
-    <br />
-    ${o}
-    <br />
-    ${s}
-    <br />
-    ${c}
-    <br />
-    ${l}
-    <br />
-    ${u}
-  `}i().then(a);
+      <br />
+      <div>상품목록_레이아웃_로딩완료</div>
+      ${t}
+      <br />
+      <div>상품목록_레이아웃_카테고리_1Depth</div>
+      ${n}
+      <br />
+      <div>상품목록_레이아웃_카테고리_2Depth</div>
+      ${r}
+      <br />
+      <div>토스트</div>
+      ${i}
+      <br />
+      <div>장바구니_비어있음</div>
+      ${a}
+      <br />
+      <div>장바구니_선택없음</div>
+      ${o}
+      <br />
+      <div>장바구니_선택있음</div>
+      ${s}
+      <br />
+      <div>상세페이지_로딩</div>
+      ${c}
+      <br />
+      <div>상세페이지_로딩완료</div>
+      ${l}
+      <br />
+      <div>_404_</div>
+      ${u}
+    `)}m().then(h);
