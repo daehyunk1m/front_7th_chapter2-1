@@ -1,5 +1,6 @@
-export const ProductSkeleton = () => {
+export const ProductSkeleton = ({ length = 1 }) => {
   return /*html*/ `
+  <!-- 로딩 스켈레톤 -->
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden animate-pulse">
       <div class="aspect-square bg-gray-200"></div>
       <div class="p-3">
@@ -9,5 +10,5 @@ export const ProductSkeleton = () => {
         <div class="h-8 bg-gray-200 rounded"></div>
       </div>
     </div>
-  `;
+  `.repeat(length);
 };

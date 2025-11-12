@@ -1,21 +1,25 @@
 import { Header } from "./components/Header.js";
-import { MainContainer } from "./components/MainContainer.js";
-import { SearchBox } from "./components/SearchBox.js";
-import { ProductList } from "./components/ProductList.js";
+// import { Routes } from "./router/routes.js";
+
 import { Footer } from "./components/Footer.js";
 
-export default function App() {
+/**
+ * @param {{ router: Router }} props
+ */
+export default function App({ router }) {
+  // 비동기 데이터 처리
+
+  // 현재 라우트
+  const { path, render } = router.getCurrentRoute();
+  // const params = router.getParams();
+  // const content = route ? route.render(params) : "";
+  console.log(router.getParams());
   return /*html*/ `
     <div class="min-h-screen bg-gray-50"> 
-      ${Header()}
-      ${MainContainer({
-        children: /*html*/ `
-          <!-- 검색 및 필터 -->
-          ${SearchBox()}
-          <!-- 상품 목록 -->
-          ${ProductList()}
-        `,
-      })}
+      ${Header({ path })}
+      <main class="max-w-md mx-auto px-4 py-4">
+        ${render()}
+      </main>
       ${Footer()}
     </div>
   `;

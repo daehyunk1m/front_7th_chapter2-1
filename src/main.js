@@ -1,4 +1,7 @@
 import App from "./App.js";
+import { render } from "./render.js";
+import { Router } from "./router/Router.js";
+import { routes } from "./router/routes.js";
 
 const enableMocking = () =>
   import("./mocks/browser.js").then(({ worker }) =>
@@ -7,7 +10,35 @@ const enableMocking = () =>
     }),
   );
 
+// 라우터 싱글톤 패턴
+/** @type {Router | null} */
+let router = null;
+
+// /**
+//  * @param {string} component
+//  * @param {Router} router
+//  */
+// export function render(component, router = null) {
+//   const $root = document.querySelector("#root");
+//   $root.innerHTML = component({ router });
+// }
+
 function main() {
+  // 라우터 초기화
+  router = new Router(routes);
+
+  // const date = 'data'
+  // console.log(data)
+
+  // 전체 앱 렌더링 처리
+  router.init(() => {
+    render(App, router);
+  });
+
+  render(App, router);
+
+  // vv 탬플릿들, 작업 종료 후 삭제 예정 vv
+
   const 상품목록_레이아웃_로딩 = `
     <div class="min-h-screen bg-gray-50">
       <header class="bg-white shadow-sm sticky top-0 z-40">
@@ -1120,12 +1151,6 @@ function main() {
     </div>
     </main>
   `;
-
-  const root = document.querySelector("#root");
-  // const date = 'data'
-  // console.log(data)
-
-  root.innerHTML = App();
 
   if (window.location.pathname.includes("pub")) {
     document.body.innerHTML = `

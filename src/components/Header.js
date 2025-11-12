@@ -1,11 +1,11 @@
-export const Header = () => {
-  const stateOfDetailPage = false;
+export const Header = ({ path }) => {
+  const isDetailPage = path.includes("/product/");
 
   return /*html*/ `
     <header class="bg-white shadow-sm sticky top-0 z-40">
       <div class="max-w-md mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
-          ${Title({ isDetail: stateOfDetailPage })}
+          ${Title({ isDetail: isDetailPage })}
           <div class="flex items-center space-x-2">
             <!-- 장바구니 아이콘 -->
             ${CartBtn()}

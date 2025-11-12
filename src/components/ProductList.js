@@ -3,17 +3,28 @@ import { ProductSkeleton } from "./ProductSkeleton";
 
 export const ProductList = () => {
   // 리스트 로직
+  // const products = [];
+
+  // use intersection observer to infinite scroll
+  const isLoading = true;
+
   return /*html*/ `
   <div class="mb-6">
     <div>
       <!-- 상품 그리드 -->
       ${ProductList.Container({
         children: /*html*/ `
-        <!-- 로딩 스켈레톤 -->
-        ${ProductSkeleton().repeat(4)}
+        
+        ${
+          isLoading ? ProductSkeleton({ length: 4 }) : "<div>상품</div>"
+          // : products.map((product) => {
+          //     console.log(product);
+          //     return "<div>상품</div>";
+          //   })
+        }
         `,
       })}
-      ${Loading()}
+      ${isLoading ? Loading() : ""}
     </div>
   </div>
   `;
