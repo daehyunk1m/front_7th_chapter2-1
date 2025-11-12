@@ -1,16 +1,16 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e){if(t.type!==`childList`)continue;for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();const e=`modulepreload`,t=function(e){return`/front_7th_chapter2-1/`+e},n={},r=function(r,i,a){let o=Promise.resolve();if(i&&i.length>0){let r=function(e){return Promise.all(e.map(e=>Promise.resolve(e).then(e=>({status:`fulfilled`,value:e}),e=>({status:`rejected`,reason:e}))))},s=document.getElementsByTagName(`link`),c=document.querySelector(`meta[property=csp-nonce]`),l=c?.nonce||c?.getAttribute(`nonce`);o=r(i.map(r=>{if(r=t(r,a),r in n)return;n[r]=!0;let i=r.endsWith(`.css`),o=i?`[rel="stylesheet"]`:``,c=!!a;if(c)for(let e=s.length-1;e>=0;e--){let t=s[e];if(t.href===r&&(!i||t.rel===`stylesheet`))return}else if(document.querySelector(`link[href="${r}"]${o}`))return;let u=document.createElement(`link`);if(u.rel=i?`stylesheet`:e,i||(u.as=`script`),u.crossOrigin=``,u.href=r,l&&u.setAttribute(`nonce`,l),document.head.appendChild(u),i)return new Promise((e,t)=>{u.addEventListener(`load`,e),u.addEventListener(`error`,()=>t(Error(`Unable to preload CSS for ${r}`)))})}))}function s(e){let t=new Event(`vite:preloadError`,{cancelable:!0});if(t.payload=e,window.dispatchEvent(t),!t.defaultPrevented)throw e}return o.then(e=>{for(let t of e||[]){if(t.status!==`rejected`)continue;s(t.reason)}return r().catch(s)})},i=()=>{let e=!1;return`
+var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot initialize the same private elements twice on an object`)}function n(e,n){t(e,n),n.add(e)}function r(e,t,n){if(typeof e==`function`?e===t:e.has(t))return arguments.length<3?t:n;throw TypeError(`Private element is not present on this object`)}return exports.assertClassBrand=r,exports.classPrivateMethodInitSpec=n,exports}({}),t;(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e){if(t.type!==`childList`)continue;for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();const n=`modulepreload`,r=function(e){return`/front_7th_chapter2-1/`+e},i={},a=function(e,t,a){let o=Promise.resolve();if(t&&t.length>0){let e=function(e){return Promise.all(e.map(e=>Promise.resolve(e).then(e=>({status:`fulfilled`,value:e}),e=>({status:`rejected`,reason:e}))))},s=document.getElementsByTagName(`link`),c=document.querySelector(`meta[property=csp-nonce]`),l=c?.nonce||c?.getAttribute(`nonce`);o=e(t.map(e=>{if(e=r(e,a),e in i)return;i[e]=!0;let t=e.endsWith(`.css`),o=t?`[rel="stylesheet"]`:``,c=!!a;if(c)for(let n=s.length-1;n>=0;n--){let r=s[n];if(r.href===e&&(!t||r.rel===`stylesheet`))return}else if(document.querySelector(`link[href="${e}"]${o}`))return;let u=document.createElement(`link`);if(u.rel=t?`stylesheet`:n,t||(u.as=`script`),u.crossOrigin=``,u.href=e,l&&u.setAttribute(`nonce`,l),document.head.appendChild(u),t)return new Promise((t,n)=>{u.addEventListener(`load`,t),u.addEventListener(`error`,()=>n(Error(`Unable to preload CSS for ${e}`)))})}))}function s(e){let t=new Event(`vite:preloadError`,{cancelable:!0});if(t.payload=e,window.dispatchEvent(t),!t.defaultPrevented)throw e}return o.then(t=>{for(let e of t||[]){if(e.status!==`rejected`)continue;s(e.reason)}return e().catch(s)})},o=({path:e})=>{let t=e.includes(`/product/`);return`
     <header class="bg-white shadow-sm sticky top-0 z-40">
       <div class="max-w-md mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
-          ${a({isDetail:e})}
+          ${s({isDetail:t})}
           <div class="flex items-center space-x-2">
             <!-- 장바구니 아이콘 -->
-            ${o()}
+            ${c()}
           </div>
         </div>
       </div>
     </header>
-  `},a=({isDetail:e=!1})=>e?`
+  `},s=({isDetail:e=!1})=>e?`
     <div class="flex items-center space-x-3">
     <button onclick="window.history.back()" class="p-2 text-gray-700 hover:text-gray-900 transition-colors">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -23,18 +23,28 @@
   <h1 class="text-xl font-bold text-gray-900">
     <a href="/" data-link="">쇼핑몰</a>
   </h1>
-  `,o=()=>`
+  `,c=()=>`
     <button id="cart-icon-btn" class="relative p-2 text-gray-700 hover:text-gray-900 transition-colors">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4m2.6 8L6 2H3m4 11v6a1 1 0 001 1h1a1 1 0 001-1v-6M13 13v6a1 1 0 001 1h1a1 1 0 001-1v-6"></path>
       </svg>
     </button>
-  `,s=({children:e})=>`
-  <main class="max-w-md mx-auto px-4 py-4">
-    ${e}
-  </main>
-  `,c=()=>`
+  `,l=()=>`
+    <footer class="bg-white shadow-sm sticky top-0 z-40">
+      <div class="max-w-md mx-auto py-8 text-center text-gray-500">
+        <p>© 2025 항해플러스 프론트엔드 쇼핑몰</p>
+      </div>
+    </footer>
+  `;function u({router:e}){let{path:t,render:n}=e.getCurrentRoute();return console.log(e.getParams()),`
+    <div class="min-h-screen bg-gray-50"> 
+      ${o({path:t})}
+      <main class="max-w-md mx-auto px-4 py-4">
+        ${n()}
+      </main>
+      ${l()}
+    </div>
+  `}function d(e,t=null){let n=document.querySelector(`#root`);n.innerHTML=e({router:t})}var f=(t=new WeakSet,class{constructor(n=[]){e.classPrivateMethodInitSpec(this,t),this.routes=n,this.basePath=`/front_7th_chapter2-1/`,this.currentRoute=null,this.params={},this.queryParams={}}init(n){this.renderCallback=n,window.addEventListener(`popstate`,()=>{e.assertClassBrand(t,this,p).call(this)}),document.addEventListener(`click`,e=>{let t=e.target.closest(`a[data-link]`);t&&(e.preventDefault(),this.navigate(t.href))})}navigate(n,r={}){let{replace:i=!1}=r,a=this.basePath+n;i?window.history.replaceState(null,``,a):window.history.pushState(null,``,a),e.assertClassBrand(t,this,p).call(this)}getCurrentRoute(){let n=this.getPath(),r=e.assertClassBrand(t,this,m).call(this,n),i=this.routes.find(e=>e.path===`*`);return r??i}getPath(){let e=window.location.pathname;return e.startsWith(this.basePath)&&(e=e.slice(this.basePath.length)||`/`),e.startsWith(`/`)?e:`/`+e}getParams(){return this.params}getQueryParams(){let e=new URLSearchParams(window.location.search),t={};for(let[n,r]of e)t[n]=r;return t}});function p(){var e;let t=this.getCurrentRoute();if(!t)throw Error(`Not Found Route`);this.currentRoute=t,(e=this.renderCallback)?.call(this)}function m(n){console.log(`🔍 Matching path:`,n);for(let r of this.routes){if(console.log(`  Checking route:`,this.currentRoute),r.path===n)return this.params={},console.log(`  ✅ Static match!`),r;if(r.path.includes(`:`)){let i=e.assertClassBrand(t,this,h).call(this,r.path);console.log(`  Regex pattern:`,i);let a=n.match(i);if(console.log(`  Match result:`,a),a)return this.params=e.assertClassBrand(t,this,g).call(this,r.path,a),console.log(`  ✅ Dynamic match! Params:`,this.params),r}}console.log(`  ❌ No match found`)}function h(e){let t=e.replace(/\//g,`\\/`).replace(/:\w+/g,`([^\\/]+)`);return RegExp(`^${t}$`)}function g(e,t){let n={},r=e.match(/:\w+/g)||[];return r.forEach((e,r)=>{let i=e.slice(1);n[i]=t[r+1]}),n}const _=()=>`
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-4">
     <!-- 검색창 -->
     <div class="mb-4">
@@ -98,11 +108,11 @@
       </div>
     </div>
   </div>
-  `,l=()=>{let e=!0;return`
+  `,v=()=>{let e=!0;return`
     <div class=${`text-center py-4 ${e?``:`text-sm text-gray-500`}`}>
-      ${e?l.HasProducts():`모든 상품을 확인했습니다`}
+      ${e?v.HasProducts():`모든 상품을 확인했습니다`}
     </div>
-  `};l.HasProducts=()=>`
+  `};v.HasProducts=()=>`
   <div class="inline-flex items-center">
     <svg class="animate-spin h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -111,7 +121,8 @@
     </svg>
     <span class="text-sm text-gray-600">상품을 불러오는 중...</span>
   </div>
-  `;const u=()=>`
+  `;const y=({length:e=1})=>`
+  <!-- 로딩 스켈레톤 -->
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden animate-pulse">
       <div class="aspect-square bg-gray-200"></div>
       <div class="p-3">
@@ -121,39 +132,62 @@
         <div class="h-8 bg-gray-200 rounded"></div>
       </div>
     </div>
-  `,d=()=>`
+  `.repeat(e),b=()=>{let e=!0;return`
   <div class="mb-6">
     <div>
       <!-- 상품 그리드 -->
-      ${d.Container({children:`
-        <!-- 로딩 스켈레톤 -->
-        ${u().repeat(4)}
+      ${b.Container({children:`
+        
+        ${e?y({length:4}):`<div>상품</div>`}
         `})}
-      ${l()}
+      ${e?v():``}
     </div>
   </div>
-  `;d.Container=({children:e})=>`
+  `};b.Container=({children:e})=>`
   <div class="grid grid-cols-2 gap-4 mb-6" id="products-grid">
     ${e}
   </div>
-  `;const f=()=>`
-    <footer class="bg-white shadow-sm sticky top-0 z-40">
-      <div class="max-w-md mx-auto py-8 text-center text-gray-500">
-        <p>© 2025 항해플러스 프론트엔드 쇼핑몰</p>
-      </div>
-    </footer>
-  `;function p(){return`
-    <div class="min-h-screen bg-gray-50"> 
-      ${i()}
-      ${s({children:`
-          <!-- 검색 및 필터 -->
-          ${c()}
-          <!-- 상품 목록 -->
-          ${d()}
-        `})}
-      ${f()}
+  `;const x=()=>`
+  <!-- 검색 및 필터 -->
+  ${_()}
+  <!-- 상품 목록 -->
+  ${b()}
+  `,S=()=>`
+    <div class="text-center my-4 py-20 shadow-md p-6 bg-white rounded-lg">
+      <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4285f4;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1a73e8;stop-opacity:1" />
+          </linearGradient>
+          <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="2" stdDeviation="8" flood-color="#000000" flood-opacity="0.1"/>
+          </filter>
+        </defs>
+        
+        <!-- 404 Numbers -->
+        <text x="160" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="48" font-weight="600" fill="url(#blueGradient)" text-anchor="middle">404</text>
+        
+        <!-- Icon decoration -->
+        <circle cx="80" cy="60" r="3" fill="#e8f0fe" opacity="0.8"/>
+        <circle cx="240" cy="60" r="3" fill="#e8f0fe" opacity="0.8"/>
+        <circle cx="90" cy="45" r="2" fill="#4285f4" opacity="0.5"/>
+        <circle cx="230" cy="45" r="2" fill="#4285f4" opacity="0.5"/>
+        
+        <!-- Message -->
+        <text x="160" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="400" fill="#5f6368" text-anchor="middle">페이지를 찾을 수 없습니다</text>
+        
+        <!-- Subtle bottom accent -->
+        <rect x="130" y="130" width="60" height="2" rx="1" fill="url(#blueGradient)" opacity="0.3"/>
+      </svg>
+      
+      <a href="/" data-link class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</a>
     </div>
-  `}const m=()=>r(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({onUnhandledRequest:`bypass`}));function h(){let e=`
+  `,C=()=>`
+  <div>
+    <h1>상품 상세</h1>
+  </div>
+  `,w=[{path:`/`,name:`home`,render:x},{path:`/product/:id`,name:`product`,render:C},{path:`*`,name:`notFound`,render:S}],T=()=>a(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({onUnhandledRequest:`bypass`}));let E=null;function D(){E=new f(w),E.init(()=>{d(u,E)}),d(u,E);let e=`
     <div class="min-h-screen bg-gray-50">
       <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="max-w-md mx-auto px-4 py-4">
@@ -1211,7 +1245,7 @@
         </div>
       </footer>
     </div>
-  `,u=`
+  `,p=`
     <main class="max-w-md mx-auto px-4 py-4">
       <div class="text-center my-4 py-20 shadow-md p-6 bg-white rounded-lg">
       <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
@@ -1244,7 +1278,7 @@
       <a href="/" data-link class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</a>
     </div>
     </main>
-  `,d=document.querySelector(`#root`);d.innerHTML=p(),window.location.pathname.includes(`pub`)&&(document.body.innerHTML=`
+  `;window.location.pathname.includes(`pub`)&&(document.body.innerHTML=`
     <div>상품목록_레이아웃_로딩</div>  
     ${e}
       <br />
@@ -1276,5 +1310,5 @@
       ${l}
       <br />
       <div>_404_</div>
-      ${u}
-    `)}m().then(h);
+      ${p}
+    `)}T().then(D);
