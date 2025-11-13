@@ -3,21 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <script>
-      // SPA 라우팅을 위한 리다이렉트
-      // GitHub Pages에서 /product/123 같은 경로로 직접 접근 시
-      // 404.html이 로드되고, 이 스크립트가 실행되어
-      // 원래 경로 정보를 query parameter로 전달하면서 index.html로 리다이렉트
+      // GitHub Pages SPA 리다이렉트
+      // /front_7th_chapter2-1/product/123 -> /front_7th_chapter2-1/?/product/123
       (function() {
-        var pathSegmentsToKeep = 1; // /front_7th_chapter2-1/ 을 유지
-
         var l = window.location;
-        l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        var path = l.pathname;
+
+        // /front_7th_chapter2-1/ 이후의 경로를 추출
+        var basePath = '/front_7th_chapter2-1/';
+        var redirectPath = '';
+
+        if (path.startsWith(basePath) && path.length > basePath.length) {
+          redirectPath = path.slice(basePath.length);
+        } else if (!path.startsWith(basePath)) {
+          redirectPath = path.slice(1);
+        }
+
+        // 리다이렉트 URL 생성
+        var redirectUrl = l.protocol + '//' + l.hostname +
+          (l.port ? ':' + l.port : '') +
+          basePath +
+          (redirectPath ? '?/' + redirectPath.replace(/&/g, '~and~') : '') +
           (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-          l.hash
-        );
+          l.hash;
+
+        l.replace(redirectUrl);
       })();
     </script>
   </head>
