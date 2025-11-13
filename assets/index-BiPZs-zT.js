@@ -60,9 +60,9 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
     <!-- 필터 옵션 -->
     ${y()}
   </div>
-  `;b.InputBox=()=>`
+  `;b.InputBox=()=>{let{search:e}=d.getState(`filters`);return`
   <div class="relative">
-    <input type="text" id="search-input" placeholder="상품명을 검색해보세요..." value="" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg
+    <input type="text" id="search-input" placeholder="상품명을 검색해보세요..." value="${e}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg
                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
       <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       </svg>
     </div>
   </div>
-  `;const x=()=>{let{hasNext:e}=d.getState(`pagination`),t=e?`text-center py-4`:`text-center py-4 text-sm text-gray-500`;return`
+  `};const x=()=>{let{hasNext:e}=d.getState(`pagination`),t=e?`text-center py-4`:`text-center py-4 text-sm text-gray-500`;return`
     <div class="${t}">
       ${e?x.HasNext():`모든 상품을 확인했습니다`}
     </div>
@@ -112,7 +112,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
           </h3>
           <p class="text-xs text-gray-500 mb-2"></p>
           <p class="text-lg font-bold text-gray-900">
-            ${e.lprice}
+            ${Number(e.lprice).toLocaleString(`ko-KR`)}원
           </p>
         </div>
         <!-- 장바구니 버튼 -->
@@ -142,16 +142,16 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
   <div class="mb-4 text-sm text-gray-600">
     총 <span class="font-medium text-gray-900">${e}개</span>의 상품
   </div>
-  `;const T=()=>{let{products:e,isLoading:t,isError:n}=d.getState();return g(()=>{e.length===0&&!t&&(d.setState({isLoading:!0}),o().then(e=>{d.setState({...e,isLoading:!1})}).catch(()=>{d.setState({isError:!0,isLoading:!1,toast:{isOpen:!0,type:`error`}})}))},[]),`
+  `;const T=()=>{let e=B.getQueryParams();return{filters:{search:e.search||``,category1:e.category1||``,category2:e.category2||``,sort:e.sort||`price_asc`},pagination:{page:parseInt(e.current||`1`,10),limit:parseInt(e.limit||`20`,10)}}},E=(e,t)=>{let n=new URLSearchParams;e.search&&n.set(`search`,e.search),e.category1&&n.set(`category1`,e.category1),e.category2&&n.set(`category2`,e.category2),e.sort&&e.sort!==`price_asc`&&n.set(`sort`,e.sort),t.page>1&&n.set(`current`,t.page),t.limit!==20&&n.set(`limit`,t.limit);let r=n.toString(),i=B.basePath===`/`?``:B.basePath,a=B.getPath(),o=i+a+(r?`?`+r:``),s=window.location.pathname+window.location.search;s!==o&&window.history.replaceState(null,``,o)};let D=null,O=!1,k=1,A=!1;const j=(e,t,n=!1)=>{let r={current:t.page,limit:t.limit,...e.search&&{search:e.search},...e.category1&&{category1:e.category1},...e.category2&&{category2:e.category2},sort:e.sort},i=`${r.current}|${r.limit}|${r.search||``}|${r.category1||``}|${r.category2||``}|${r.sort}`;D===i&&!n||A||(D=i,A=!0,d.setState({isLoading:!0}),o(r).then(e=>{if(n&&t.page>k){let n=d.getState(`products`);d.setState({products:[...n,...e.products],pagination:e.pagination,filters:e.filters,isLoading:!1}),k=t.page}else d.setState({...e,isLoading:!1}),k=t.page;A=!1}).catch(()=>{d.setState({isLoading:!1,isError:!0,toast:{isOpen:!0,type:`error`}}),A=!1}))},M=()=>{let{isError:e,filters:t,pagination:n}=d.getState();return g(()=>{if(O)return;O=!0;let e=T();if(D=null,k=e.pagination.page||1,A=!1,e.filters.search||e.filters.category1||e.filters.category2||e.filters.sort!==`price_asc`||e.pagination.page>1||e.pagination.limit!==20){d.setState({filters:e.filters,pagination:{...d.getState(`pagination`),...e.pagination}});return}j(t,n)},[]),g(()=>{if(!O)return;let e=n.page>k&&n.page>1;n.page===1&&k>1&&(k=1,D=null),e||E(t,n),j(t,n,e)},[t.search,t.category1,t.category2,t.sort,n.page,n.limit]),`
   <!-- 검색 및 필터 -->
   ${b()}
   <!-- 상품 목록 -->
-  ${n?`
+  ${e?`
       <div class="text-center py-8">
       <div class="text-600 mb-4">오류가 발생했습니다.</div>
       <button id="retry-fetch-btn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">다시 시도</button>
       </div>`:w()}
-  `},E=()=>`
+  `},N=()=>`
     <div class="text-center my-4 py-20 shadow-md p-6 bg-white rounded-lg">
       <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -182,22 +182,22 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       
       <a href="" data-link class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</a>
     </div>
-  `,D=()=>{let e=d.getState(`isLoading`);return`
-  ${e?D.Loading():D.Container()}
-  `};D.Loading=()=>`
+  `,P=()=>{let e=d.getState(`isLoading`);return`
+  ${e?P.Loading():P.Container()}
+  `};P.Loading=()=>`
   <div class="py-20 bg-gray-50 flex items-center justify-center">
     <div class="text-center">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
       <p class="text-gray-600">상품 정보를 불러오는 중...</p>
     </div>
   </div>
-  `,D.Container=()=>`
+  `,P.Container=()=>`
   <!-- 브레드크럼 -->
-  ${D.Breadcrumb()}
+  ${P.Breadcrumb()}
   <!-- 상품 상세 정보 -->
-  ${D.Item()}
+  ${P.Item()}
     <!-- 수량 선택 및 액션 -->
-    ${D.Cart()}
+    ${P.Cart()}
   <!-- 상품 목록으로 이동 -->
   <div class="mb-6">
     <button class="block w-full text-center bg-gray-100 text-gray-700 py-3 px-4 rounded-md 
@@ -206,8 +206,8 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
     </button>
   </div>
   <!-- 관련 상품 -->
-  ${D.RelatedProducts()}
-  `,D.Breadcrumb=()=>{let{category1:e,category2:t}=d.getState(`selectedProduct`);return`
+  ${P.RelatedProducts()}
+  `,P.Breadcrumb=()=>{let{category1:e,category2:t}=d.getState(`selectedProduct`);return`
   <nav class="mb-4">
     <div class="flex items-center space-x-2 text-sm text-gray-600">
       <a href="/" data-link="" class="hover:text-blue-600 transition-colors">홈</a>
@@ -225,7 +225,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       </button>
     </div>
   </nav>
-  `},D.Item=()=>{let{title:e,image:t,lprice:n,brand:r,description:i,rating:a,reviewCount:o,stock:s}=d.getState(`selectedProduct`);return`
+  `},P.Item=()=>{let{title:e,image:t,lprice:n,brand:r,description:i,rating:a,reviewCount:o,stock:s}=d.getState(`selectedProduct`);return`
   <div class="bg-white rounded-lg shadow-sm mb-6">
     <!-- 상품 이미지 -->
     <div class="p-4">
@@ -259,7 +259,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
         </div>
         <!-- 가격 -->
         <div class="mb-4">
-          <span class="text-2xl font-bold text-blue-600">${n.toLocaleString(`ko-KR`)}원</span>
+          <span class="text-2xl font-bold text-blue-600">${Number(n).toLocaleString(`ko-KR`)}원</span>
         </div>
         <!-- 재고 -->
         <div class="text-sm text-gray-600 mb-4">
@@ -269,7 +269,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
         <div class="text-sm text-gray-700 leading-relaxed mb-6">${i}</div>
       </div>
     </div>
-  `},D.Cart=()=>{let{productId:e}=d.getState(`selectedProduct`),{quantity:t}=d.getState(`cart`);return`
+  `},P.Cart=()=>{let{productId:e}=d.getState(`selectedProduct`),{quantity:t}=d.getState(`cart`);return`
   <div class="border-t border-gray-200 p-4">
       <div class="flex items-center justify-between mb-4">
         <span class="text-sm font-medium text-gray-900">수량</span>
@@ -297,7 +297,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       </button>
     </div>
   </div>
-  `},D.RelatedProducts=()=>{let e=[];return`
+  `},P.RelatedProducts=()=>{let e=[];return`
   <div class="bg-white rounded-lg shadow-sm">
     <div class="p-4 border-b border-gray-200">
       <h2 class="text-lg font-bold text-gray-900">관련 상품</h2>
@@ -305,11 +305,11 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
     </div>
     <div class="p-4">
       <div class="grid grid-cols-2 gap-3 responsive-grid">
-        ${e.length>0?e.map(e=>D.RelatedItem(e)).join(``):`관련 상품이 없습니다.`}
+        ${e.length>0?e.map(e=>P.RelatedItem(e)).join(``):`관련 상품이 없습니다.`}
       </div>
     </div>
   </div>
-  `},D.RelatedItem=e=>{let{productId:t,title:n,image:r,lprice:i}=e;return`
+  `},P.RelatedItem=e=>{let{productId:t,title:n,image:r,lprice:i}=e;return`
   <div class="bg-gray-50 rounded-lg p-3 related-product-card cursor-pointer" data-product-id="${t}">
     <div class="aspect-square bg-white rounded-md overflow-hidden mb-2">
       <img src="${r}" alt="${n}" class="w-full h-full object-cover" loading="lazy">
@@ -317,19 +317,19 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
     <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">${n}</h3>
     <p class="text-sm font-bold text-blue-600">${i}원</p>
   </div>
-  `};const O=[{path:`/`,name:`home`,render:T},{path:`/product/:id`,name:`product`,render:D},{path:`*`,name:`notFound`,render:E}];var k=(t=new WeakSet,class{constructor(n=[]){e.classPrivateMethodInitSpec(this,t),this.routes=n,this.basePath=`/front_7th_chapter2-1/`,this.currentRoute=null,this.params={},this.queryParams={}}init(n){this.renderCallback=n;let r=window.location.search;if(r&&r.startsWith(`?/`)){let e=r.slice(2).split(`&`)[0].replace(/~and~/g,`&`),t=r.slice(2).split(`&`).slice(1).join(`&`).replace(/~and~/g,`&`),n=window.location.pathname+(e?`/`+e:``)+(t?`?`+t:``)+window.location.hash;window.history.replaceState(null,``,n)}window.addEventListener(`popstate`,()=>{e.assertClassBrand(t,this,A).call(this)}),document.addEventListener(`click`,e=>{let t=e.target.closest(`a[data-link]`);if(t){e.preventDefault();let n=t.getAttribute(`href`)||`/`;this.navigate(n)}})}navigate(n,r={}){let{replace:i=!1}=r,a=this.basePath===`/`?n:this.basePath+n;i?window.history.replaceState(null,``,a):window.history.pushState(null,``,a),e.assertClassBrand(t,this,A).call(this)}getCurrentRoute(){let n=this.getPath(),r=e.assertClassBrand(t,this,j).call(this,n),i=this.routes.find(e=>e.path===`*`);return r??i}getPath(){let e=window.location.pathname;return e.startsWith(this.basePath)&&(e=e.slice(this.basePath.length)||`/`),e.startsWith(`/`)?e:`/`+e}getParams(){return this.params}getQueryParams(){let e=new URLSearchParams(window.location.search),t={};for(let[n,r]of e)t[n]=r;return t}});function A(){var e;let t=this.getCurrentRoute();if(!t)throw Error(`Not Found Route`);this.currentRoute=t,(e=this.renderCallback)?.call(this)}function j(n){for(let r of this.routes){if(r.path===n)return this.params={},r;if(r.path.includes(`:`)){let i=e.assertClassBrand(t,this,M).call(this,r.path),a=n.match(i);if(a)return this.params=e.assertClassBrand(t,this,N).call(this,r.path,a),r}}}function M(e){let t=e.replace(/\//g,`\\/`).replace(/:\w+/g,`([^\\/]+)`);return RegExp(`^${t}$`)}function N(e,t){let n={},r=e.match(/:\w+/g)||[];return r.forEach((e,r)=>{let i=e.slice(1);n[i]=t[r+1]}),n}const P=new k(O),F=({path:e})=>{let t=e.includes(`/product/`);return`
+  `};const ee=[{path:`/`,name:`home`,render:M},{path:`/product/:id`,name:`product`,render:P},{path:`*`,name:`notFound`,render:N}];var F=(t=new WeakSet,class{constructor(n=[]){e.classPrivateMethodInitSpec(this,t),this.routes=n,this.basePath=`/front_7th_chapter2-1/`,this.currentRoute=null,this.params={},this.queryParams={}}init(n){this.renderCallback=n;let r=window.location.search;if(r&&r.startsWith(`?/`)){let e=r.slice(2).split(`&`)[0].replace(/~and~/g,`&`),t=r.slice(2).split(`&`).slice(1).join(`&`).replace(/~and~/g,`&`),n=window.location.pathname+(e?`/`+e:``)+(t?`?`+t:``)+window.location.hash;window.history.replaceState(null,``,n)}window.addEventListener(`popstate`,()=>{e.assertClassBrand(t,this,I).call(this)}),document.addEventListener(`click`,e=>{let t=e.target.closest(`a[data-link]`);if(t){e.preventDefault();let n=t.getAttribute(`href`)||`/`;this.navigate(n)}})}navigate(n,r={}){let{replace:i=!1}=r,a=this.basePath===`/`?n:this.basePath+n;i?window.history.replaceState(null,``,a):window.history.pushState(null,``,a),e.assertClassBrand(t,this,I).call(this)}getCurrentRoute(){let n=this.getPath(),r=e.assertClassBrand(t,this,L).call(this,n),i=this.routes.find(e=>e.path===`*`);return r??i}getPath(){let e=window.location.pathname;return e.startsWith(this.basePath)&&(e=e.slice(this.basePath.length)||`/`),e.startsWith(`/`)?e:`/`+e}getParams(){return this.params}getQueryParams(){let e=new URLSearchParams(window.location.search),t={};for(let[n,r]of e)t[n]=r;return t}});function I(){var e;let t=this.getCurrentRoute();if(!t)throw Error(`Not Found Route`);this.currentRoute=t,(e=this.renderCallback)?.call(this)}function L(n){for(let r of this.routes){if(r.path===n)return this.params={},r;if(r.path.includes(`:`)){let i=e.assertClassBrand(t,this,R).call(this,r.path),a=n.match(i);if(a)return this.params=e.assertClassBrand(t,this,z).call(this,r.path,a),r}}}function R(e){let t=e.replace(/\//g,`\\/`).replace(/:\w+/g,`([^\\/]+)`);return RegExp(`^${t}$`)}function z(e,t){let n={},r=e.match(/:\w+/g)||[];return r.forEach((e,r)=>{let i=e.slice(1);n[i]=t[r+1]}),n}const B=new F(ee),V=({path:e})=>{let t=e.includes(`/product/`);return`
     <header class="bg-white shadow-sm sticky top-0 z-40">
       <div class="max-w-md mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
-          ${I({isDetail:t})}
+          ${H({isDetail:t})}
           <div class="flex items-center space-x-2">
             <!-- 장바구니 아이콘 -->
-            ${L()}
+            ${U()}
           </div>
         </div>
       </div>
     </header>
-  `},I=({isDetail:e=!1})=>(console.log(`/front_7th_chapter2-1/`),e?`
+  `},H=({isDetail:e=!1})=>e?`
     <div class="flex items-center space-x-3">
     <button id="back-btn" class="p-2 text-gray-700 hover:text-gray-900 transition-colors">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -339,10 +339,10 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
     <h1 class="text-lg font-bold text-gray-900">상품 상세</h1>
   </div>
   `:`
-  <h1 class="text-xl font-bold text-gray-900">
+  <h1 id="app-title" class="text-xl font-bold text-gray-900">
     <a href="/" data-link="">쇼핑몰</a>
   </h1>
-  `),L=()=>{let{list:e}=d.getState(`cart`);return`
+  `,U=()=>{let{list:e}=d.getState(`cart`);return`
     <button id="cart-icon-btn" class="relative p-2 text-gray-700 hover:text-gray-900 transition-colors" data-link="/cart">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -354,14 +354,14 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       </span>
       `:``}
     </button>
-  `},R=()=>`
+  `},W=()=>`
   <div class="fixed inset-0 z-50 overflow-y-auto cart-modal">
       <!-- 배경 오버레이 -->
       <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity cart-modal-overlay"></div>
       <!-- 모달 컨테이너 -->
-      ${R.Contents()}
+      ${W.Contents()}
     </div>
-  `;R.Contents=()=>`
+  `;W.Contents=()=>`
     <div class="flex min-h-full items-end justify-center p-0 sm:items-center sm:p-4">
       <div class="relative bg-white rounded-t-lg sm:rounded-lg shadow-xl w-full max-w-md sm:max-w-lg max-h-[90vh] overflow-hidden">
         <!-- 헤더 -->
@@ -518,7 +518,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
         </div>
       </div>
     </div>
-  `,R.CartItem=()=>`
+  `,W.CartItem=()=>`
   <div class="flex items-center py-3 border-b border-gray-100 cart-item" data-product-id="85067212996">
     <!-- 선택 체크박스 -->
     <label class="flex items-center mr-3">
@@ -526,13 +526,13 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
     focus:ring-blue-500" data-product-id="85067212996">
     </label>
   </div>
-  `;const z=()=>{let{isOpen:e,type:t}=d.getState(`toast`),n={success:z.Success,info:z.Info,error:z.Error};return g(()=>{if(t){let e=setTimeout(()=>{d.setState({toast:{isOpen:!1}})},3e3);return()=>clearTimeout(e)}},[e]),`
+  `;const G=()=>{let{isOpen:e,type:t}=d.getState(`toast`),n={success:G.Success,info:G.Info,error:G.Error};return g(()=>{if(t){let e=setTimeout(()=>{d.setState({toast:{isOpen:!1}})},3e3);return()=>clearTimeout(e)}},[e]),`
   <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 toast-container">
     <div class="flex flex-col gap-2 items-center justify-center mx-auto" style="width: fit-content;">
         ${n[t]()}
     </div>
   </div>
-  `};z.Success=()=>`
+  `};G.Success=()=>`
   <div class="bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 max-w-sm">
     <div class="flex-shrink-0">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -546,7 +546,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       </svg>
     </button>
   </div>
-  `,z.Info=()=>`
+  `,G.Info=()=>`
   <div class="bg-blue-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 max-w-sm">
     <div class="flex-shrink-0">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -560,7 +560,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       </svg>
     </button>
   </div>
-  `,z.Error=()=>`
+  `,G.Error=()=>`
   <div class="bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 max-w-sm">
     <div class="flex-shrink-0">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -574,23 +574,23 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       </svg>
     </button>
   </div>
-  `;const B=async()=>{let{products:e,pagination:t}=d.getState(),{products:n,pagination:r}=await o({page:t.page+1,limit:t.limit});d.setState({products:[...e,...n],pagination:{...t,...r}})},V=()=>(g(()=>{let e=document.querySelector(`footer`);if(!e)return;let t=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){let{path:e}=P.getCurrentRoute();if(e!==`/`)return;let{isLoading:t,pagination:n}=d.getState();if(t||!n.hasNext)return;d.setState({isLoading:!0}),B().then(()=>{d.setState({isLoading:!1})})}})},{root:null,rootMargin:`100px`,threshold:.1});return t.observe(e),()=>{t.disconnect()}},[]),`
+  `;const K=()=>(g(()=>{let e=document.querySelector(`footer`);if(!e)return;let t=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){let{path:e}=B.getCurrentRoute();if(e!==`/`)return;let{isLoading:t,pagination:n}=d.getState();if(t||!n.hasNext)return;d.setState({pagination:{...n,page:n.page+1}})}})},{root:null,rootMargin:`100px`,threshold:.1});return t.observe(e),()=>{t.disconnect()}},[]),`
     <footer class="bg-white shadow-sm sticky top-0 z-40">
       <div class="max-w-md mx-auto py-8 text-center text-gray-500">
         <p>© 2025 항해플러스 프론트엔드 쇼핑몰</p>
       </div>
     </footer>
-  `);function H(){let{path:e,render:t}=P.getCurrentRoute(),{cart:n,toast:r}=d.getState();return`
+  `);function q(){let{path:e,render:t}=B.getCurrentRoute(),{cart:n,toast:r}=d.getState();return`
     <div class="min-h-screen bg-gray-50"> 
-      ${F({path:e})}
+      ${V({path:e})}
       <main class="max-w-md mx-auto px-4 py-4">
-        ${n.isOpen?R():``}
+        ${n.isOpen?W():``}
         ${t()}
         </main>
-        ${r.isOpen?z():``}
-      ${V()}
+        ${r.isOpen?G():``}
+      ${K()}
     </div>
-  `}function U(e){if(!e)throw Error(`Component is required`);let t=document.querySelector(`#root`);t.innerHTML=e(),_()}const W=()=>{document.addEventListener(`click`,q),document.addEventListener(`change`,Y)},G=()=>{d.setState({isLoading:!0,isError:!1}),o().then(e=>{d.setState({...e,isLoading:!1})}).catch(()=>{d.setState({isError:!0,isLoading:!1,toast:{isOpen:!0,type:`error`}})})},K=e=>{d.setState({isLoading:!0,isError:!1}),s(e).then(e=>{d.setState({selectedProduct:e,isLoading:!1})}).catch(()=>{d.setState({isError:!0,isLoading:!1,toast:{isOpen:!0,type:`error`}})})},q=e=>{let t=e.target;if(t.closest(`#back-btn`)&&window.history.back(),t.closest(`#retry-fetch-btn`)){G();return}if(t.closest(`#cart-open-btn`)){let e=d.getState(`cart`);if(e.isOpen)return;d.setState({cart:{...e,isOpen:!0}});return}if(t.closest(`#cart-modal-close-btn`)||t.closest(`.cart-modal-overlay`)){let e=d.getState(`cart`);if(!e.isOpen)return;d.setState({cart:{...e,isOpen:!1}});return}if((t.closest(`.add-to-cart-btn`)||t.closest(`#add-to-cart-btn`))&&(e.stopPropagation(),J(t.dataset.productId),d.setState({toast:{isOpen:!0,type:`success`}})),t.closest(`.product-card`)){if(t.closest(`.add-to-cart-btn`))return;let e=t.closest(`[data-product-id]`),n=e.dataset.productId;K(n),P.navigate(`product/${n}`);return}if(t.closest(`.go-to-product-list`)){P.navigate(``);return}if(t.closest(`#toast-close-btn`)){d.setState({toast:{isOpen:!1}});return}if(t.matches(`#quantity-increase`)){let e=d.getState(`cart`);d.setState({cart:{...e,quantity:e.quantity+1}})}if(t.matches(`#quantity-decrease`)){let e=d.getState(`cart`);if(e.quantity<=1)return;d.setState({cart:{...e,quantity:e.quantity-1}})}},J=e=>{let{products:t,cart:n}=d.getState();if(n.list.get(e))return;let{image:r,lprice:i,title:a}=t.find(({productId:t})=>t===e),o=n.list.set(e,{productId:e,image:r,lprice:i,title:a,quantity:1,selected:!1});d.setState({cart:{...n,list:o}}),d.setState({toast:{isOpen:!0,type:`success`}})},Y=e=>{let t=e.target;if(t.matches(`#limit-select`)){let e=d.getState(`pagination`),n=+t.value;if(e.limit===n)return;d.setState({pagination:{...e,limit:n}});return}if(t.matches(`#sort-select`)){let e=d.getState(`filters`);if(e.sort===t.value)return;d.setState({filters:{...e,sort:t.value}});return}},X=()=>{document.addEventListener(`input`,Z)},Z=e=>{let t=e.target;if(t.matches(`#search-input`)&&Q(t.value),t.matches(`#quantity-input`)){let e=t.dataset.productId,n=+t.value,r=d.getState(`cart`),i=r.list.get(e);if(!i)return;let a=r.list.set(e,{...i,quantity:n});d.setState({cart:{...r,list:a}})}},Q=e=>{let t=d.getState(`filters`);t.search!==e&&d.setState({filters:{...t,search:e}})},$=()=>a(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({onUnhandledRequest:`bypass`,serviceWorker:{url:`/front_7th_chapter2-1/mockServiceWorker.js`}}));function ee(){d.subscribe(()=>{U(H)}),P.init(()=>{U(H)}),U(H),W(),X();let e=`
+  `}function J(e){if(!e)throw Error(`Component is required`);let t=document.querySelector(`#root`);t.innerHTML=e(),_()}const Y=()=>{document.addEventListener(`click`,Q),document.addEventListener(`change`,ne),document.addEventListener(`keydown`,ie)},X=()=>{d.setState({isLoading:!0,isError:!1}),o().then(e=>{d.setState({...e,isLoading:!1})}).catch(()=>{d.setState({isError:!0,isLoading:!1,toast:{isOpen:!0,type:`error`}})})},Z=e=>{d.setState({isLoading:!0,isError:!1}),s(e).then(e=>{d.setState({selectedProduct:e,isLoading:!1})}).catch(()=>{d.setState({isError:!0,isLoading:!1,toast:{isOpen:!0,type:`error`}})})},Q=e=>{let t=e.target;if(t.matches(`#app-title`)){console.log(`first`),d.setState({filters:{search:``,category1:``,category2:``,sort:`price_asc`},pagination:{page:1,limit:20}}),B.navigate(`/`);return}if(t.closest(`#back-btn`)&&window.history.back(),t.closest(`#retry-fetch-btn`)){X();return}if(t.closest(`#cart-open-btn`)){let e=d.getState(`cart`);if(e.isOpen)return;d.setState({cart:{...e,isOpen:!0}});return}if(t.closest(`#cart-modal-close-btn`)||t.closest(`.cart-modal-overlay`)){let e=d.getState(`cart`);if(!e.isOpen)return;d.setState({cart:{...e,isOpen:!1}});return}if((t.closest(`.add-to-cart-btn`)||t.closest(`#add-to-cart-btn`))&&(e.stopPropagation(),te(t.dataset.productId),d.setState({toast:{isOpen:!0,type:`success`}})),t.closest(`.product-card`)){if(t.closest(`.add-to-cart-btn`))return;let e=t.closest(`[data-product-id]`),n=e.dataset.productId;Z(n),B.navigate(`product/${n}`);return}if(t.closest(`.go-to-product-list`)){B.navigate(``);return}if(t.closest(`#toast-close-btn`)){d.setState({toast:{isOpen:!1}});return}if(t.matches(`#quantity-increase`)){let e=d.getState(`cart`);d.setState({cart:{...e,quantity:e.quantity+1}})}if(t.matches(`#quantity-decrease`)){let e=d.getState(`cart`);if(e.quantity<=1)return;d.setState({cart:{...e,quantity:e.quantity-1}})}},te=e=>{var t;let{products:n,cart:r}=d.getState();if(r.list.get(e))return;let{image:i,lprice:a,title:o}=n.find(({productId:t})=>t===e),s=r.list.set(e,{productId:e,image:i,lprice:a,title:o,quantity:((t=r.list.get(e))?.quantity||0)+r.quantity,selected:!1});d.setState({cart:{...r,quantity:1,list:s},toast:{isOpen:!0,type:`success`}})},ne=e=>{let t=e.target;if(t.matches(`#limit-select`)){let e=d.getState(`pagination`),n=+t.value;if(e.limit===n)return;d.setState({pagination:{...e,limit:n}});return}if(t.matches(`#sort-select`)){let e=d.getState(`filters`);if(e.sort===t.value)return;d.setState({filters:{...e,sort:t.value}});return}t.matches(`#search-input`)&&$(t.value)},$=e=>{let t=d.getState(`filters`);t.search!==e&&d.setState({filters:{...t,search:e}})},re=()=>{document.addEventListener(`input`,ae)},ie=e=>{let t=e.target;t.matches(`#search-input`)&&e.key===`Enter`&&$(t.value)},ae=e=>{let t=e.target;if(t.matches(`#quantity-input`)){let e=t.dataset.productId,n=+t.value,r=d.getState(`cart`),i=r.list.get(e);if(!i)return;let a=r.list.set(e,{...i,quantity:n});d.setState({cart:{...r,list:a}})}},oe=()=>a(async()=>{let{worker:e}=await import(`./browser-CcyfQrG1.js`);return{worker:e}},[]).then(({worker:e})=>e.start({onUnhandledRequest:`bypass`,serviceWorker:{url:`/front_7th_chapter2-1/mockServiceWorker.js`}}));function se(){d.subscribe(()=>{J(q)}),B.init(()=>{J(q)}),J(q),Y(),re();let e=`
     <main class="max-w-md mx-auto px-4 py-4">
       <!-- 검색 및 필터 -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-4">
@@ -1152,4 +1152,4 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
       ${a}
       <br />
 
-    `)}$().then(ee);
+    `)}oe().then(se);
