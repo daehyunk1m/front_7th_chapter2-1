@@ -329,7 +329,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
         </div>
       </div>
     </header>
-  `},I=({isDetail:e=!1})=>e?`
+  `},I=({isDetail:e=!1})=>(console.log(`/front_7th_chapter2-1/`),e?`
     <div class="flex items-center space-x-3">
     <button id="back-btn" class="p-2 text-gray-700 hover:text-gray-900 transition-colors">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,7 +342,7 @@ var e=function(exports){function t(e,t){if(t.has(e))throw TypeError(`Cannot init
   <h1 class="text-xl font-bold text-gray-900">
     <a href= data-link="">쇼핑몰</a>
   </h1>
-  `,L=()=>{let{list:e}=d.getState(`cart`);return`
+  `),L=()=>{let{list:e}=d.getState(`cart`);return`
     <button id="cart-icon-btn" class="relative p-2 text-gray-700 hover:text-gray-900 transition-colors" data-link="/cart">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
